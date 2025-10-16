@@ -11,7 +11,6 @@ Built using **HTML**, **CSS**, and **JavaScript**, this app demonstrates basic C
 - 📋 Instantly view the added contacts on the right-hand side  
 - 🔄 Reset the entire list with one click  
 - 💾 Uses in-memory storage (no backend required)  
-- 🧩 Simple, responsive, and beginner-friendly UI  
 
 ---
 
