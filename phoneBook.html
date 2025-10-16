@@ -1,0 +1,190 @@
+<html>
+  <style>
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+    .body {
+      margin: '30px';
+    }
+    .submit-button {
+      width: 100px;
+      height: 40px;
+      background-color: rebeccapurple;
+      color: white;
+      border: 0px;
+      margin-top: 1.5rem;
+      font-weight: 700;
+    }
+    .text-field-design {
+      width: 300px;
+      height: 40px;
+      padding: 8px 12px;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+    .app-wrapper {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+      width: 100%;
+      gap: 10px;
+    }
+    .form-container {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      margin-left: 30px;
+    }
+    .phone-book-title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #1a1a1a;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .entry {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font-family: 'Inter', sans-serif;
+      height: auto;
+    }
+
+    .entry:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    }
+
+    .entry p {
+      margin: 0.4rem 0;
+      color: #333;
+      font-size: 0.95rem;
+    }
+
+    .entry p:first-child {
+      font-weight: 600;
+      color: #0077ff;
+    }
+    .reset-button {
+      background: #f3f4f6;
+      color: #374151;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+      transition: all 0.2s ease;
+      margin-top: 10px;
+    }
+
+    .reset-button:hover {
+      background: #e5e7eb;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .reset-button:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .reset-button:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.5);
+    }
+
+    .phone-list-container {
+      flex: 1;
+      background: #f9fafb;
+      gap: 1.5rem;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+  <body>
+    <div class="app-wrapper">
+      <div class="form-container">
+        <h2 class="phone-book-title">Phone Book</h2>
+        <input
+          type="text"
+          placeholder="Name"
+          id="name"
+          class="text-field-design"
+        />
+        <input
+          type="number"
+          placeholder="Phone Number"
+          name="phoneNumber"
+          id="phoneNumber"
+          class="text-field-design"
+        />
+        <button onclick="submitHandler()" class="submit-button">Submit</button>
+      </div>
+      <div class="phone-list-container">
+        <div id="phone-book" class="phone-book-container"></div>
+        <button
+          class="reset-button"
+          onclick="clearList()"
+          id="reset"
+          style="display: none"
+        >
+          Reset
+        </button>
+      </div>
+    </div>
+    <script>
+      // Global phone storage in array
+      var phoneData = [];
+      var resetButtonSelector = document.getElementById('reset');
+
+      function clearList() {
+        phoneData = [];
+        renderPhoneData();
+        resetButtonSelector.style.display = 'none';
+      }
+
+      function submitHandler() {
+        const nameSelector = document.getElementById('name');
+        const phoneNumberSelector = document.getElementById('phoneNumber');
+
+        phoneData.push({
+          name: nameSelector.value,
+          phoneNumber: phoneNumberSelector.value,
+        });
+
+        if (phoneData.length > 0) {
+          resetButtonSelector.style.display = 'block';
+        }
+
+        nameSelector.value = '';
+        phoneNumberSelector.value = '';
+
+        renderPhoneData();
+      }
+
+      function renderPhoneData() {
+        const phoneBookSelector = document.getElementById('phone-book');
+
+        phoneBookSelector.innerHTML = phoneData
+          .map(
+            data => `
+          <div class = "entry">
+            <p> Name: ${data.name} </p>
+            <p> Phone number: ${data.phoneNumber} </p>
+          </div>`,
+          )
+          .join('</br>');
+      }
+    </script>
+  </body>
+</html>
